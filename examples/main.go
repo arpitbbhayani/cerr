@@ -26,7 +26,19 @@ func CerrTypeCheck() {
 	}
 }
 
+// CerrJSONString shows how to convert Cerr into JSON string
+func CerrJSONString() {
+	errorCode := "ERROR_1"
+	err := &cerr.Cerr{
+		ErrorCode: errorCode,
+		Err:       fmt.Errorf("unique constraint violation"),
+	}
+	errJSONString := err.ToJSON()
+	fmt.Println(errJSONString)
+}
+
 func main() {
 	CerrHelloWorld()
 	CerrTypeCheck()
+	CerrJSONString()
 }
