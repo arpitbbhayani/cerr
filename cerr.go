@@ -1,9 +1,5 @@
 package cerr
 
-import (
-	"encoding/json"
-)
-
 // Cerr represents base custom error
 type Cerr struct {
 	ErrorCode   string `json:"error_code,omitempty"`
@@ -22,13 +18,6 @@ func (r *Cerr) Error() string {
 // OriginalError returns the original error.
 func (r *Cerr) OriginalError() error {
 	return r.Err
-}
-
-// ToJSON marshals the Cerr instance to JSON string
-// making it easier to send it as a REST response.
-func (r *Cerr) ToJSON() string {
-	b, _ := json.Marshal(r)
-	return string(b)
 }
 
 // ToCerr tries to convert error into Cerr
