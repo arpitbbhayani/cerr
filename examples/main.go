@@ -69,9 +69,9 @@ func CerrExtending() {
 	err = err2
 	switch e := err.(type) {
 	case *UnauthorizedError:
-		fmt.Println("err2 is of type UnauthorizedError", e)
+		fmt.Println("err2 is of type UnauthorizedError", e.HTTPCode)
 	case *PathError:
-		fmt.Println("err2 is of type PathError", e)
+		fmt.Println("err2 is of type PathError", e.Path)
 	default:
 		fmt.Println("err2 is generic error", e)
 	}
