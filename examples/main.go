@@ -39,8 +39,8 @@ func CerrJSONString() {
 	fmt.Println(string(errJSONString))
 }
 
-// CerrInheritance shows how to create sub-errors of Cerr and check for instance.
-func CerrInheritance() {
+// CerrExtending shows how to create sub-errors of Cerr and check for instance.
+func CerrExtending() {
 	type UnauthorizedError struct {
 		cerr.Cerr
 		HTTPCode int `json:"http_code"`
@@ -54,13 +54,32 @@ func CerrInheritance() {
 	err1 := &UnauthorizedError{cerr.Cerr{ErrorCode: "unauthorized", Message: "Unauthorized access forbidden"}, 403}
 	err2 := &PathError{cerr.Cerr{ErrorCode: "path_error", Message: "Path is invalid"}, "/home/sbin/does-not-exist"}
 
-	fmt.Println(err1)
-	fmt.Println(err2)
+	var err error
+
+	err = err1
+	switch e := err.(type) {
+	case *UnauthorizedError:
+		fmt.Println("err1 is of type UnauthorizedError", e)
+	case *PathError:
+		fmt.Println("err1 is of type PathError", e)
+	default:
+		fmt.Println("err1 is generic error", e)
+	}
+
+	err = err2
+	switch e := err.(type) {
+	case *UnauthorizedError:
+		fmt.Println("err2 is of type UnauthorizedError", e)
+	case *PathError:
+		fmt.Println("err2 is of type PathError", e)
+	default:
+		fmt.Println("err2 is generic error", e)
+	}
 }
 
 func main() {
 	CerrHelloWorld()
 	CerrTypeCheck()
 	CerrJSONString()
-	CerrInheritance()
+	CerrExtending()
 }
