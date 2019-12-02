@@ -26,3 +26,40 @@ func ToCerr(err error) (*Cerr, bool) {
 	obj, ok := err.(*Cerr)
 	return obj, ok
 }
+
+type CerrBuilder struct {
+	instance *Cerr
+}
+
+func NewCerrBuilder() *CerrBuilder {
+	return &CerrBuilder{}
+}
+
+func (c *CerrBuilder) SetErrorCode(code string) *CerrBuilder {
+	c.instance.ErrorCode = code
+	return c
+}
+
+func (c *CerrBuilder) SetOriginalError(err error) *CerrBuilder {
+	c.instance.Err = err
+	return c
+}
+
+func (c *CerrBuilder) SetMessage(message string) *CerrBuilder {
+	c.instance.Message = message
+	return c
+}
+
+func (c *CerrBuilder) SetIsTimeout(isTimeout bool) *CerrBuilder {
+	c.instance.IsTimeout = isTimeout
+	return c
+}
+
+func (c *CerrBuilder) SetIsRetryable(isRetryable bool) *CerrBuilder {
+	c.instance.IsRetryable = isRetryable
+	return c
+}
+
+func (c *CerrBuilder) Build() *Cerr {
+	return c.instance
+}
