@@ -32,7 +32,9 @@ type CerrBuilder struct {
 }
 
 func NewCerrBuilder() *CerrBuilder {
-	return &CerrBuilder{}
+	return &CerrBuilder{
+		instance: &Cerr{},
+	}
 }
 
 func (c *CerrBuilder) SetErrorCode(code string) *CerrBuilder {
